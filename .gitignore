@@ -1,2 +1,7 @@
 node_modules
+dist
 .vscode/project.code-workspace
+.idea/listen1_desktop.iml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/

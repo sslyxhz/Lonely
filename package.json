@@ -1,22 +1,82 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "name": "lonely",
+  "version": "0.0.1",
+  "description": "Simple Electron application",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "postinstall": "install-app-deps",
+    "start": "electron . --enable-logging",
+    "dev": "NODE_ENV='development' npm run start",
+    "dist": "electron-builder .",
+    "dist:mac": "CSC_IDENTITY_AUTO_DISCOVERY=false DEBUG=electron-builder electron-builder --platform darwin",
+    "dist:linux": "./node_modules/.bin/electron-builder --linux --ia32 --x64",
+    "dist:linux32": "./node_modules/.bin/electron-builder --linux --ia32",
+    "dist:linux64": "./node_modules/.bin/electron-builder --linux --x64",
+    "dist:win": "./node_modules/.bin/electron-builder --win --ia32 --x64",
+    "dist:win32": "./node_modules/.bin/electron-builder --win --ia32",
+    "dist:win64": "./node_modules/.bin/electron-builder --win --x64"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sslyxhz/Lonely.git"
+  },
   "keywords": [
     "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "Plugin",
+    "Lonely"
   ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "author": "Lonely <sslyxhz@hotmail.com>",
+  "license": "MIT",
+  "build": {
+    "appId": "com.sslyxhz.lonely",
+    "productName": "Lonely",
+    "asar": true,
+    "artifactName": "${name}_${version}_${os}_${arch}.${ext}",
+    "dmg": {
+      "title": "Lonely",
+      "icon": "build/disk.icns",
+      "background": "build/background.png",
+      "iconSize": 80,
+      "contents": [
+        {
+          "x": 192,
+          "y": 344
+        },
+        {
+          "x": 448,
+          "y": 344,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "tar.gz",
+        "appImage",
+        "deb"
+      ]
+    },
+    "nsis": {
+      "runAfterFinish": false,
+      "deleteAppDataOnUninstall": true,
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false,
+      "installerLanguages": "zh_CN",
+      "language": 2052,
+      "perMachine": true,
+      "createDesktopShortcut": true
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    }
+  },
   "devDependencies": {
-    "electron": "^8.0.1"
+    "electron": "^8.0.1",
+    "electron-builder": "^22.3.2"
+  },
+  "dependencies": {
+    "electron-debug": "^3.0.1"
   }
 }
